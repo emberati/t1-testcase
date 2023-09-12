@@ -4,12 +4,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.modelmapper.Converter;
 import org.modelmapper.spi.MappingContext;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashSet;
 import java.util.Map;
 
+/**
+ * Класс-маппер для преобразования результирующей последовательности
+ * {@code LinkedHashSet<Map.Entry<Character, Integer>>} к сериализуемому типу {@code ObjectNode}
+ * @see ObjectNode
+ */
 public class FrequencySetToObjectNodeConverter implements Converter<LinkedHashSet<Map.Entry<Character, Integer>>, ObjectNode> {
     private final ObjectMapper objectMapper = new ObjectMapper();
 

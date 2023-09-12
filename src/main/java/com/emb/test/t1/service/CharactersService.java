@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import java.util.LinkedHashSet;
 import java.util.Map;
 
+/**
+ * Сервисный класс отвечающий за логику работы с символами.
+ */
 @Service
 public class CharactersService {
 
@@ -17,6 +20,12 @@ public class CharactersService {
         comparatorFactory = new FrequencyComparatorFactory();
     }
 
+    /**
+     * Метод сортирующий символы исходной строки по частоте их использования.
+     * @param data объект содержащий исходную строку для частотного анализа и порядок сортировки.
+     * @return отсортированный LinkedHashSet, содержащий {@code Map.Entry<Character, Integer>} иначе говоря
+     * упорядоченная последовательность пары символа с его количеством повторений в исходной строке.
+     */
     public LinkedHashSet<Map.Entry<Character, Integer>> sortedByFrequencyCharactersFromString(@NonNull CharactersSortInfo data) {
         var comparator = comparatorFactory.createComparator(data.order());
         var counter = new CharacterFrequencyCounter(comparator);
