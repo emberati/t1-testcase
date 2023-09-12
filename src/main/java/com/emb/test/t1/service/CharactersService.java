@@ -1,27 +1,27 @@
 package com.emb.test.t1.service;
 
+import com.emb.test.t1.data.dto.CharactersSortInfo;
+import com.emb.test.t1.service.counter.FrequencyComparatorFactory;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.LinkedHashSet;
+import java.util.Map;
 
 @Service
 public class CharactersService {
-    public Map<Character, Integer> findCharactersFrequency(char[] characters) {
-        var frequencies = new HashMap<Character, Integer>();
-        for (char character : characters) {
-            int count = 1;
-            if (frequencies.containsKey(character)) {
-                count += frequencies.get(character);
-            }
-            frequencies.put(character, count);
-        }
-        return frequencies;
+
+    private final FrequencyComparatorFactory comparatorFactory;
+
+    public CharactersService() {
+        comparatorFactory = new FrequencyComparatorFactory();
     }
 
-    public Set<Map.Entry<Character, Integer>> sortCharactersByFrequency(Map<Character, Integer> characterFrequency) {
-        return characterFrequency.entrySet().stream()
-                .sorted(Comparator.comparingInt(Map.Entry::getValue))
-                .collect(Collectors.toCollection(LinkedHashSet::new));
+    public LinkedHashSet<Map.Entry<Character, Integer>> sortedByFrequencyCharactersFromString(@NonNull CharactersSortInfo data) {
+        var comparator = comparatorFactory.createComparator(data.order());
+        var counter = new CharacterFrequencyCounter(comparator);
+        var frequencies = counter.findCharactersFrequency(data.string().toCharArray());
+
+        return counter.sortCharactersByFrequency(frequencies);
     }
 }
