@@ -26,8 +26,7 @@ public class CharacterFrequencyCounter {
      * в исходной строке. Ключ - символ, значение - число его повторений в строке.
      */
     public Map<Character, Integer> findCharactersFrequency(char[] characters) {
-        Objects.requireNonNull(characters);
-        if (characters.length == 0) throw new IllegalArgumentException();
+        if (characters.length == 0) throw new IllegalArgumentException("Input string must not be 0 length!");
         var frequencies = new HashMap<Character, Integer>();
         for (char character : characters) {
             int count = 1;

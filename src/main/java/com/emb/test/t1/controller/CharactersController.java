@@ -1,7 +1,6 @@
 package com.emb.test.t1.controller;
 
 import com.emb.test.t1.data.dto.CharactersSortInfo;
-import com.emb.test.t1.exception.IllegalFrequencySortingStrategy;
 import com.emb.test.t1.service.CharactersService;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.modelmapper.ModelMapper;
@@ -30,9 +29,7 @@ public class CharactersController {
             var sorted = service.sortedByFrequencyCharactersFromString(data);
             return new ResponseEntity<>(mapper.map(sorted, ObjectNode.class).toString(), HttpStatus.OK);
         } catch (IllegalArgumentException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Empty Input String", e);
-        } catch (IllegalFrequencySortingStrategy e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Sorting Order", e);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         }
     }
 }

@@ -1,7 +1,5 @@
 package com.emb.test.t1.service.counter;
 
-import com.emb.test.t1.exception.IllegalFrequencySortingStrategy;
-
 import java.util.Comparator;
 import java.util.Map;
 
@@ -18,7 +16,8 @@ public class FrequencyComparatorFactory {
             }
             return createComparator(SortingStrategy.valueOf(strategy.toUpperCase()));
         } catch (IllegalArgumentException e) {
-            throw new IllegalFrequencySortingStrategy();
+            throw new IllegalArgumentException(
+                    "Invalid sorting order: %s! Available \"ascending\" or \"descending\"!".formatted(strategy));
         }
     }
 

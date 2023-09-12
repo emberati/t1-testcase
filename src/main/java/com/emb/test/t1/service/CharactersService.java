@@ -27,6 +27,7 @@ public class CharactersService {
      * упорядоченная последовательность пары символа с его количеством повторений в исходной строке.
      */
     public LinkedHashSet<Map.Entry<Character, Integer>> sortedByFrequencyCharactersFromString(@NonNull CharactersSortInfo data) {
+        if (data.string() == null) throw new IllegalArgumentException("Input string must not be null!");
         var comparator = comparatorFactory.createComparator(data.order());
         var counter = new CharacterFrequencyCounter(comparator);
         var frequencies = counter.findCharactersFrequency(data.string().toCharArray());
